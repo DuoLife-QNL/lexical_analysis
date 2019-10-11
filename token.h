@@ -4,15 +4,16 @@ class token{
     public:
         static int count;
         static void inc_cnt();
-        int get_cnt();
 };
 
 class id: public token{
     public:
+        static int id_cnt;
         void add_id(char* s);
+        void inc_id_cnt();
 
     private:
-        static vector<string>list;
+        static map<int, string>wordlist;
 };
 
 class num: public token{

@@ -6,12 +6,13 @@ void token::inc_cnt(){
     count++;
 }
 
-int token::get_cnt(){
-    return count;
-}
+int id::id_cnt = 0;
 
-void id::add_id(char* s){
-    list.push_back(string(s));
+void id::add_id(char* s){   //should be added first and then increase id_cnt
+    wordlist[id_cnt] = string(s);
+}
+void id::inc_id_cnt(){
+    id_cnt++;
 }
 
 void num::display(char* s){
