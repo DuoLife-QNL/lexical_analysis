@@ -13,6 +13,8 @@ void id::inc_id_cnt(){
     id_cnt++;
     token::count++;
 }
+map<string, int> id::wordlist;
+
 void id::add_id(string s){   //should be added first and then increase id_cnt
     wordlist[s] = id_id;
     id_id++;
@@ -43,6 +45,13 @@ void num::inc_num_cnt(){
 }
 void num::display(string s){
     cout << "Number" << setw(20) << s << endl;
+}
+double num::detected(){
+    inc_num_cnt();
+    string s(yytext);
+    display(s);
+    double value = stod(s);
+    return value;
 }
 
 int operators::opr_cnt = 0;
@@ -83,9 +92,11 @@ void keyword::display(string s){
 }
 void keyword::detected(char* yytext){
     string s(yytext);
-    inc_kw_cnt;
+    inc_kw_cnt();
     display(s);
 }
+
+int line::count = 0;
 
 void line::inc_cnt(){
     count++;

@@ -15,7 +15,7 @@ int main(int argc, char** argv){
     int d = 1;
     while(d){
         d = yylex();
-        if (d >= AUTO && d <= WHILE){
+        if (d >= AUTO && d <= NEWLINE){
             keyword k;
             k.detected(yytext);
         }else if(d == RELOP){

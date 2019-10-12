@@ -16,9 +16,7 @@ class id: public token{
         void display(string s);
         bool exit(string s);
         int detected();
-
-    private:
-        static map<string, int>wordlist;
+        static map<string, int> wordlist;
 };
 
 class num: public token{
@@ -56,7 +54,7 @@ class keyword: public token{
 class line{
     public:
         static int count;
-        void inc_cnt();
+        static void inc_cnt();
 };
 
 #define EOI 0
@@ -92,6 +90,8 @@ class line{
 #define VOID 30
 #define VOLATILE 31
 #define WHILE 32
+#define TAB 33
+#define NEWLINE 34
 
 #define RELOP 39
 #define PLUS 40
@@ -141,6 +141,7 @@ class line{
 #define QMARK 89
 #define COLON 90
 #define DOT 91
+#define QUOTE  92
 #define SEMI   93
 #define COMMA  94
 

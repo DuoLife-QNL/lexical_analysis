@@ -12,4 +12,6 @@ int main(){
         printf("%d\t", a[i]);
     }
     printf("%d\n", a[CNT_NUM - 1]);
-}
+}//mark
+
+/*sdfjasdif*/

@@ -1,12 +1,15 @@
 %{
     #include"token.h"
+    num g_num;
+    id g_id;
+    int yylval;
 %}
 line    \n
 blank   [ \t]
 blanks  {blank}+
 letter  [A-Za-z]
 digit   [0-9]
-id      {letter|_}({letter}|{digit}|_)*
+id      ({letter}|_)({letter}|{digit}|_)*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 
 %%
@@ -14,6 +17,7 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 {blanks}    ;
 {line}      line::inc_cnt();
 "/*".*"*/"  ;
+"//".*"\n"  ;
 "auto" 		return AUTO ;
 "break" 	return BREAK ;
 "case" 		return CASE ;
@@ -46,6 +50,8 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 "void" 		return VOID ;
 "volatile" 	return VOLATILE ;
 "while" 	return WHILE ;
+"\\t"        return TAB;
+"\\n"        return NEWLINE;
 
 "+" 		{yylval = PLUS ;return RELOP;}
 "-" 		{yylval = MINUS ;return RELOP;}
@@ -81,23 +87,24 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 ">>=" 		{yylval = RSHIFTEQ ;return RELOP;}
 "->" 		{yylval = PTRREF ;return RELOP;}
 
-"#" 		{yylval = HASH ; return DELIMETER;} 
-"$" 		{yylval = DOLLAR ; return DELIMETER;} 
-"@" 		{yylval = ATRATE ; return DELIMETER;} 
-"[" 		{yylval = LS ; return DELIMETER;} 
-"]" 		{yylval = RS ; return DELIMETER;} 
-"{" 		{yylval = LB ; return DELIMETER;} 
-"}" 		{yylval = RB ; return DELIMETER;} 
-"(" 		{yylval = LP; return DELIMETER;} 
-")" 		{yylval = RP ; return DELIMETER;} 
-"?" 		{yylval = QMARK ; return DELIMETER;} 
-":" 		{yylval = COLON ; return DELIMETER;} 
-"." 		{yylval = DOT ; return DELIMETER;} 
-";"         {yylval = SEMI ; return DELIMETER;} 
-"," 		{yylval = COMMA ; return DELIMETER;} 
+"#" 		{yylval = HASH ; return DELIMITER;} 
+"$" 		{yylval = DOLLAR ; return DELIMITER;} 
+"@" 		{yylval = ATRATE ; return DELIMITER;} 
+"[" 		{yylval = LS ; return DELIMITER;} 
+"]" 		{yylval = RS ; return DELIMITER;} 
+"{" 		{yylval = LB ; return DELIMITER;} 
+"}" 		{yylval = RB ; return DELIMITER;} 
+"(" 		{yylval = LP; return DELIMITER;} 
+")" 		{yylval = RP ; return DELIMITER;} 
+"?" 		{yylval = QMARK ; return DELIMITER;} 
+":" 		{yylval = COLON ; return DELIMITER;} 
+"." 		{yylval = DOT ; return DELIMITER;} 
+";"         {yylval = SEMI ; return DELIMITER;} 
+"," 		{yylval = COMMA ; return DELIMITER;} 
+"\""        {yylval = QUOTE; return DELIMITER;}
 
-{id}        {yylval = id::detected(); return IDENTIFIER;}
-{num}       {yylval = num::detected();return NUM;}
+{num}       {yylval = g_num.detected(); return NUM;}
+{id}        {yylval = g_id.detected(); return IDENTIFIER;}
 
 %%
 

@@ -1,16 +1,19 @@
 HEAD = global.h lex.h token.h
 OBJ = main.o lex.o token.o
-FINAL = lexical_analysis
+BIN = lexical_analysis
 
-$(FINAL): $(OBJ)
-	$(CC) -o $(FINAL) $(OBJ)
+$(BIN): $(OBJ)
+	g++ $(OBJ) -o $(BIN)
 
-main.o: $(HEAD) main.cpp
-	$(CC) -o main main.cpp
-token.o: $(HEAD) token.cpp
-	$(CC) -o token token.cpp
-lex.o: $(HEAD) lex.c
-	$(CC) -o lex lex.c
+main.o: $(HEAD) main.cpp lex.cpp
+	g++ -c main.cpp -o main.o
+token.o: $(HEAD) token.cpp lex.cpp
+	g++ -c token.cpp -o token.o
+lex.o: $(HEAD) lex.cpp
+	g++ -c lex.cpp -o lex.o
+
+lex.cpp:lex.c
+	mv lex.c lex.cpp
 
 lex.c: lex.l
-	flex -o lex lex.l
+	flex -o lex.c lex.l

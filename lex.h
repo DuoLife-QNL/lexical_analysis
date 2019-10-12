@@ -4,5 +4,4 @@
 extern int yyleng;
 extern char* yytext;
 extern FILE* yyin;
-extern int yylex();
-extern int yylval;
+int yylex();
