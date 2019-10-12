@@ -9,7 +9,7 @@ class token{
 class id: public token{
     public:
         static int id_cnt;
-        void add_id(char* s);
+        void add_id(string s);
         void inc_id_cnt();
 
     private:
@@ -18,20 +18,20 @@ class id: public token{
 
 class num: public token{
     public:
-        void display(char* s);
+        void display(string s);
 };
 
 class operators: public token{
     public:
-        void display(char* s);
+        void display(string s);
 };
 
 class delimiter: public token{
     public:
-        void display(char* s);
+        void display(string s);
 };
 
 class keyword: public token{
     public:
-        void display(char* s);
+        void display(string s);
 };
