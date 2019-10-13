@@ -14,6 +14,9 @@ Operator                      =
 Number                        5                             
 Delimiter                     ;                             
 Keyword                       int                           
+Error                         as$aa                         Location:                     1
+Delimiter                     ;                             
+Keyword                       int                           
 Identifier                    main                          
 Delimiter                     (                             
 Delimiter                     )                             
@@ -83,8 +86,7 @@ Identifier                    a
 Delimiter                     [                             
 Identifier                    CNT_NUM                       
 Operator                      -                             
-Number                        1                             
-Delimiter                     ]                             
+Error                         1]                            Location:                     1
 Delimiter                     )                             
 Delimiter                     ;                             
 Delimiter                     }                             
@@ -94,9 +96,9 @@ STATISTICS
 
 ITEM                          COUNT                         
 Identifier                    16                            
-Number                        5                             
+Number                        4                             
 Operator                      12                            
 Delimiter                     37                            
-Keyword                       8                             
-Line                          16                            
-Total character number        179                           
+Keyword                       9                             
+Line                          18                            
+Total character number        181                           

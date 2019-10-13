@@ -9,8 +9,11 @@ blank   [ \t]
 blanks  {blank}+
 letter  [A-Za-z]
 digit   [0-9]
+dlmt    [#$@]
 id      ({letter}|_)({letter}|{digit}|_)*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
+id_err1 ([^ [A-Za-z_]])({letter}|{digit}|_)*
+id_err2 ({letter}|_)({letter}|{digit}|_)*{dlmt}?({letter}|{digit}|_)*
 
 %%
 
@@ -107,6 +110,9 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 
 {id}        {yylval = g_id.detected(); return IDENTIFIER;}
 {num}       {yylval = g_num.detected(); return NUM;}
+
+{id_err1}   {return ERROR;}
+{id_err2}   {return ERROR;}
 
 
 %%
