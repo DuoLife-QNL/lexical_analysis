@@ -14,10 +14,12 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 
 %%
 
+    /**/
 {blanks}    ;
 {line}      line::inc_cnt();
 "/*".*"*/"  ;
-"//".*"\n"  ;
+"//".*      ;
+("\"")(.)*("\"")  return STRINGS;
 "auto" 		return AUTO ;
 "break" 	return BREAK ;
 "case" 		return CASE ;
@@ -101,10 +103,11 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 "." 		{yylval = DOT ; return DELIMITER;} 
 ";"         {yylval = SEMI ; return DELIMITER;} 
 "," 		{yylval = COMMA ; return DELIMITER;} 
-"\""        {yylval = QUOTE; return DELIMITER;}
+    /*"\""        {yylval = QUOTE; return DELIMITER;}*/
 
-{num}       {yylval = g_num.detected(); return NUM;}
 {id}        {yylval = g_id.detected(); return IDENTIFIER;}
+{num}       {yylval = g_num.detected(); return NUM;}
+
 
 %%
 

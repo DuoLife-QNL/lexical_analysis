@@ -17,3 +17,8 @@ lex.cpp:lex.c
 
 lex.c: lex.l
 	flex -o lex.c lex.l
+
+.PHONY: clean
+
+clean:
+	@- $(RM) *.o lex.cpp $(BIN)

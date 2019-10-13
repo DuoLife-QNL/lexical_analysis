@@ -57,6 +57,19 @@ class line{
         static void inc_cnt();
 };
 
+class strings{
+    public:
+        void display(char* yytext);
+};
+
+class error{
+    public:
+        void display(char* yytext, int yylineno);
+};
+
+extern int argc;
+extern ofstream outfile;
+
 #define EOI 0
 #define AUTO 1
 #define BREAK 2
@@ -147,3 +160,7 @@ class line{
 
 #define IDENTIFIER  95
 #define NUM 96
+
+#define STRINGS 110
+
+#define ERROR 199
