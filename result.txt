@@ -14,7 +14,9 @@ Operator                      =
 Number                        5                             
 Delimiter                     ;                             
 Keyword                       int                           
-Error                         as$aa                         Location:                     1
+Identifier                    as                            
+Delimiter                     $                             
+Identifier                    aa                            
 Delimiter                     ;                             
 Keyword                       int                           
 Identifier                    main                          
@@ -98,7 +100,7 @@ ITEM                          COUNT
 Identifier                    16                            
 Number                        4                             
 Operator                      12                            
-Delimiter                     37                            
+Delimiter                     38                            
 Keyword                       9                             
 Line                          18                            
-Total character number        181                           
+Total character number        186                           

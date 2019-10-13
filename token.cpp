@@ -135,8 +135,8 @@ void strings::display(char* yytext){
 void error::display(char* yytext, int yylineno){
     string s(yytext);
     if (argc == 3){
-        outfile << left << setw(30) << "Error" << left << setw(30) << s << left << setw(30) << "Location: " << yylineno << endl;
+        outfile << left << setw(30) << "Error" << left << setw(30) << s << left <<"Line: " << yylineno << endl;
     }else{
-        cout << left << setw(30) << "Error" << left << setw(30) << s << left << setw(30) << "Location: " << yylineno << endl;
+        cout << left << setw(30) << "Error" << left << setw(30) << s << left <<"Line: " << yylineno << endl;
     }
 }

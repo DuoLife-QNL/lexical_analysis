@@ -4,25 +4,30 @@
     id g_id;
     int yylval;
 %}
+
+%option yylineno
+
 line    \n
 blank   [ \t]
 blanks  {blank}+
-letter  [A-Za-z]
+letter  [A-Za-z_]
 digit   [0-9]
 dlmt    [#$@]
-id      ({letter}|_)({letter}|{digit}|_)*
+id      {letter}({letter}|{digit})*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
-id_err1 ([^ [A-Za-z_]])({letter}|{digit}|_)*
-id_err2 ({letter}|_)({letter}|{digit}|_)*{dlmt}?({letter}|{digit}|_)*
+id_err1 {digit}({letter}|{digit})*{letter}({letter}|{digit})*
+id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 
 %%
 
-    /**/
+
 {blanks}    ;
 {line}      line::inc_cnt();
 "/*".*"*/"  ;
 "//".*      ;
 ("\"")(.)*("\"")  return STRINGS;
+
+
 "auto" 		return AUTO ;
 "break" 	return BREAK ;
 "case" 		return CASE ;
@@ -106,13 +111,12 @@ id_err2 ({letter}|_)({letter}|{digit}|_)*{dlmt}?({letter}|{digit}|_)*
 "." 		{yylval = DOT ; return DELIMITER;} 
 ";"         {yylval = SEMI ; return DELIMITER;} 
 "," 		{yylval = COMMA ; return DELIMITER;} 
-    /*"\""        {yylval = QUOTE; return DELIMITER;}*/
-
-{id}        {yylval = g_id.detected(); return IDENTIFIER;}
-{num}       {yylval = g_num.detected(); return NUM;}
 
 {id_err1}   {return ERROR;}
 {id_err2}   {return ERROR;}
+
+{id}        {yylval = g_id.detected(); return IDENTIFIER;}
+{num}       {yylval = g_num.detected(); return NUM;}
 
 
 %%

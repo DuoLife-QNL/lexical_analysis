@@ -3,6 +3,7 @@
 const int CNT_NUM = 5;
 
 int as$aa;
+int 3a;
 
 int main(){
     int a[CNT_NUM];
