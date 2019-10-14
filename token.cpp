@@ -135,7 +135,7 @@ void keyword::detected(char* yytext){
     display(s);
 }
 
-int line::count = 0;
+int line::count = 1;
 
 void line::inc_cnt(){
     count++;
