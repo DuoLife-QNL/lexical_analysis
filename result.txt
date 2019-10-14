@@ -14,9 +14,10 @@ Operator                      =
 Number                        5                             
 Delimiter                     ;                             
 Keyword                       int                           
-Identifier                    as                            
-Delimiter                     $                             
-Identifier                    aa                            
+Error                         as$aa                         Line: 5
+Delimiter                     ;                             
+Keyword                       int                           
+Error                         3a                            Line: 6
 Delimiter                     ;                             
 Keyword                       int                           
 Identifier                    main                          
@@ -88,7 +89,8 @@ Identifier                    a
 Delimiter                     [                             
 Identifier                    CNT_NUM                       
 Operator                      -                             
-Error                         1]                            Location:                     1
+Number                        1                             
+Delimiter                     ]                             
 Delimiter                     )                             
 Delimiter                     ;                             
 Delimiter                     }                             
@@ -98,9 +100,21 @@ STATISTICS
 
 ITEM                          COUNT                         
 Identifier                    16                            
-Number                        4                             
+Number                        5                             
 Operator                      12                            
-Delimiter                     38                            
-Keyword                       9                             
-Line                          18                            
-Total character number        186                           
+Delimiter                     39                            
+Keyword                       10                            
+Line                          19                            
+Total character number        187                           
+
+
+ID_TABLE
+
+203            CNT_NUM
+205            a
+202            h
+206            i
+200            include
+204            main
+207            printf
+201            stdio
