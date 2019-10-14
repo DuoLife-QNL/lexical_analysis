@@ -41,6 +41,25 @@ int id::detected(){
         return id_id - 1;
     }
 }
+void id::disp_tbl(){
+    if (argc == 2){
+        cout << endl << endl << "ID_TABLE" << endl << endl;
+        map<string, int>::iterator iter = wordlist.begin();
+        map<string ,int>::iterator end = wordlist.end();
+        for (; iter != end; iter ++)
+            cout << setw(5) << iter->second << setw(10) << " " << iter->first << endl;
+    }else if (argc == 3){
+        outfile << endl << endl << "ID_TABLE" << endl << endl;
+        map<string, int>::iterator iter = wordlist.begin();
+        map<string ,int>::iterator end = wordlist.end();
+        for (; iter != end; iter ++)
+            outfile << setw(5) << iter->second << setw(10) << " " << iter->first << endl;
+    }else {
+        ;
+    }
+
+}
+
 
 int num::num_cnt = 0;
 void num::inc_num_cnt(){

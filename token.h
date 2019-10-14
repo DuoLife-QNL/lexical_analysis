@@ -17,6 +17,7 @@ class id: public token{
         bool exit(string s);
         int detected();
         static map<string, int> wordlist;
+        void disp_tbl();
 };
 
 class num: public token{

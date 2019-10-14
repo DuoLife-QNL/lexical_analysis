@@ -15,6 +15,7 @@ int main(int a, char** b){
     delimiter de;
     strings s;
     error e;
+    id i;
 
     if (argc > 1){
         if(!(yyin = fopen(argv[1], "r"))){
@@ -68,7 +69,7 @@ int main(int a, char** b){
         cout << left << setw(30) << "Delimiter" << left << setw(30) << delimiter::dlmt_cnt << endl;
         cout << left << setw(30) << "Keyword" << left << setw(30) << keyword::kw_cnt << endl;
         cout << left << setw(30) << "Line" << left << setw(30) << line::count << endl;
-        cout << left << setw(30) << "Total character number" << left << setw(30) << ch_cnt << endl;  
+        cout << left << setw(30) << "Total character number" << left << setw(30) << ch_cnt << endl;
     }else if(argc == 3){
         outfile << endl << endl << "STATISTICS" << endl << endl;
 
@@ -82,6 +83,7 @@ int main(int a, char** b){
         outfile << left << setw(30) << "Total character number" << left << setw(30) << ch_cnt << endl;  
 
     }
+    i.disp_tbl();
 
     outfile.close();
     return 0;
