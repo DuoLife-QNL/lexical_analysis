@@ -15,7 +15,7 @@ digit   [0-9]
 dlmt    [#$@]
 id      {letter}({letter}|{digit})*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
-num_err [+\-]?{digit}+(\.(^{digit}))[.]*
+num_err [+\-]?{digit}+(\.{letter}*)[.]*
 id_err1 {digit}({letter}|{digit})*{letter}({letter}|{digit})*
 id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 
