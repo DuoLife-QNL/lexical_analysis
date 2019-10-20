@@ -15,6 +15,7 @@ digit   [0-9]
 dlmt    [#$@]
 id      {letter}({letter}|{digit})*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
+num_err [+\-]?{digit}+(\.(^{digit}))[.]*
 id_err1 {digit}({letter}|{digit})*{letter}({letter}|{digit})*
 id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 
@@ -114,6 +115,7 @@ id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 
 {id_err1}   {return ERROR;}
 {id_err2}   {return ERROR;}
+{num_err}   {return ERROR;}
 
 {id}        {yylval = g_id.detected(); return IDENTIFIER;}
 {num}       {yylval = g_num.detected(); return NUM;}
