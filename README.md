@@ -43,3 +43,7 @@
   lex.c: lex.l
   	flex -o lex.c lex.l
   ```
+
+
+## 程序设计说明
+### lex词法分析程序设计说明
