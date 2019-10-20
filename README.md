@@ -22,24 +22,24 @@
   * ```lexical_analysis [inputfile_path]```：从路径为```[inputfile_path]```的文件中读取输入，并在标准输出流中输出结果
   * ```lexical_analysis [inputfile_path] [outputfile_path]```：从路径为```inputfile_path```的文件中读取输入，并将词法分析器的输出结果保存在路径为```outputfile_path]``的文件中
 * 各文件依赖关系及生成如下：
-```Makefile
-HEAD = global.h lex.h token.h
-OBJ = main.o lex.o token.o
-BIN = lexical_analysis
+  ```Makefile
+  HEAD = global.h lex.h token.h
+  OBJ = main.o lex.o token.o
+  BIN = lexical_analysis
 
-$(BIN): $(OBJ)
-	g++ $(OBJ) -o $(BIN)
+  $(BIN): $(OBJ)
+  	g++ $(OBJ) -o $(BIN)
 
-main.o: $(HEAD) main.cpp lex.cpp
-	g++ -c main.cpp -o main.o
-token.o: $(HEAD) token.cpp lex.cpp
-	g++ -c token.cpp -o token.o
-lex.o: $(HEAD) lex.cpp
-	g++ -c lex.cpp -o lex.o
+  main.o: $(HEAD) main.cpp lex.cpp
+  	g++ -c main.cpp -o main.o
+  token.o: $(HEAD) token.cpp lex.cpp
+  	g++ -c token.cpp -o token.o
+  lex.o: $(HEAD) lex.cpp
+  	g++ -c lex.cpp -o lex.o
 
-lex.cpp:lex.c
-	mv lex.c lex.cpp
+  lex.cpp:lex.c
+  	mv lex.c lex.cpp
 
-lex.c: lex.l
-	flex -o lex.c lex.l
-```
+  lex.c: lex.l
+  	flex -o lex.c lex.l
+  ```
