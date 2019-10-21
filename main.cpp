@@ -34,7 +34,7 @@ int main(int a, char** b){
 
     int d = yylex();
     while(d){
-        if (d >= AUTO && d <= NEWLINE){
+        if (d == KEYWORD){
             k.detected(yytext);
             ch_cnt += yyleng;
         }else if(d == RELOP){

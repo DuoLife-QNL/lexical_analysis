@@ -29,40 +29,40 @@ id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 ("\"")(.)*("\"")  return STRINGS;
 
 
-"auto" 		return AUTO ;
-"break" 	return BREAK ;
-"case" 		return CASE ;
-"char" 		return CHAR ;
-"const" 	return CONST ;
-"continue" 	return CONTINUE ;
-"default" 	return DEFAULT ;
-"do" 		return DO ;
-"double" 	return DOUBLE ;
-"else" 		return ELSE ;
-"enum" 		return ENUM ;
-"extern" 	return EXTERN ;
-"float" 	return FLOAT ;
-"for" 		return FOR ;
-"goto" 		return GOTO ;
-"if" 		return IF ;
-"int" 		return INT ;
-"long" 		return LONG ;
-"register" 	return REGISTER ;
-"return" 	return RETURN ;
-"short" 	return SHORT ;
-"signed" 	return SIGNED ;
-"sizeof" 	return SIZEOF ;
-"static" 	return STATIC ;
-"struct" 	return STRUCT ;
-"switch" 	return SWITCH ;
-"typedef" 	return TYPEDEF ;
-"union" 	return UNION ;
-"unsigned" 	return UNSIGNED ;
-"void" 		return VOID ;
-"volatile" 	return VOLATILE ;
-"while" 	return WHILE ;
-"\\t"        return TAB;
-"\\n"        return NEWLINE;
+"auto" 		{yylval = AUTO ; return KEYWORD;}
+"break" 	{yylval = BREAK ; return KEYWORD;}
+"case" 		{yylval = CASE ; return KEYWORD;}
+"char" 		{yylval = CHAR ; return KEYWORD;}
+"const" 	{yylval = CONST ; return KEYWORD;}
+"continue" 	{yylval = CONTINUE ; return KEYWORD;}
+"default" 	{yylval = DEFAULT ; return KEYWORD;}
+"do" 		{yylval = DO ; return KEYWORD;}
+"double" 	{yylval = DOUBLE ; return KEYWORD;}
+"else" 		{yylval = ELSE ; return KEYWORD;}
+"enum" 		{yylval = ENUM ; return KEYWORD;}
+"extern" 	{yylval = EXTERN ; return KEYWORD;}
+"float" 	{yylval = FLOAT ; return KEYWORD;}
+"for" 		{yylval = FOR ; return KEYWORD;}
+"goto" 		{yylval = GOTO ; return KEYWORD;}
+"if" 		{yylval = IF ; return KEYWORD;}
+"int" 		{yylval = INT ; return KEYWORD;}
+"long" 		{yylval = LONG ; return KEYWORD;}
+"register" 	{yylval = REGISTER ; return KEYWORD;}
+"return" 	{yylval = RETURN ; return KEYWORD;}
+"short" 	{yylval = SHORT ; return KEYWORD;}
+"signed" 	{yylval = SIGNED ; return KEYWORD;}
+"sizeof" 	{yylval = SIZEOF ; return KEYWORD;}
+"static" 	{yylval = STATIC ; return KEYWORD;}
+"struct" 	{yylval = STRUCT ; return KEYWORD;}
+"switch" 	{yylval = SWITCH ; return KEYWORD;}
+"typedef" 	{yylval = TYPEDEF ; return KEYWORD;}
+"union" 	{yylval = UNION ; return KEYWORD;}
+"unsigned" 	{yylval = UNSIGNED ; return KEYWORD;}
+"void" 		{yylval = VOID ; return KEYWORD;}
+"volatile" 	{yylval = VOLATILE ; return KEYWORD;}
+"while" 	{yylval = WHILE ; return KEYWORD;}
+"\\t"       {yylval = TAB; return KEYWORD;}
+"\\n"       {yylval = NEWLINE; return KEYWORD;}
 
 "+" 		{yylval = PLUS ;return RELOP;}
 "-" 		{yylval = MINUS ;return RELOP;}
