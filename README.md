@@ -14,7 +14,7 @@
 * 采用flex工具生成词法分析核心程序```lex.cpp```
 * 采用面向对象程序设计思想
 * 词法规则参照ANSI C
-* 完整代码仓库参见https://github.com/DuoLife-QNL/lexical_analysis[https://github.com/DuoLife-QNL/lexical_analysis]
+* 完整代码仓库参见[https://github.com/DuoLife-QNL/lexical_analysis](https://github.com/DuoLife-QNL/lexical_analysis)
  
 ### 程序运行说明
 * 运行环境：linux/unix + flex词法分析工具
