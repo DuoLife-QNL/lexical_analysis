@@ -196,3 +196,84 @@ id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 * 第二、三中情况对应非法标识符的错误检测
 4. 检测到错误时，通过yylineno返回错误出现的位置，并通过error实例进行错误处理
 5. 由于lex的两个匹配原则，故出现自动机不接受的词法错误的时候，不会报错，即可以直接完成错误状态的恢复
+
+### 记号类的操作说明（以id类为例）
+标识符类的声明如下：
+```C++
+class id: public token{
+    public:
+        static int id_cnt;
+        static int id_id;
+        void add_id(string s);
+        void inc_id_cnt();
+        void display(string s);
+        bool exit(string s);
+        int detected();
+        static map<string, int> wordlist;
+        void disp_tbl();
+};
+```
+变量和函数的作用及其实现方法：
+```static int id_cnt```：用于记录标识符的个数
+```static int id_id```：用于记录插入的标识符在标识符表中的入口地址（编码）
+```static map<string, int> wordlist```：一个```map```数据类型，用来保存标识符表，以标识符作为索引（确保唯一），表项内容为标识符的编码
+```C++
+int id::detected(){
+    string s(yytext);
+    if(exit(s)){
+        inc_id_cnt();
+        display(s);
+        return wordlist[s];
+    }else{
+        add_id(s);
+        display(s);
+        return id_id - 1;
+    }
+}
+```
+当lex程序检测到一个标识符时，调用id的此成员函数，判断此标识符是否已在标识符表中，若是，则返回其在表中的位置，若不是，则将其插入到标识符表中，之后再返回其再表中的位置
+```C++
+void id::add_id(string s){   //should be added first and then increase id_cnt
+    wordlist[s] = id_id;
+    id_id++;
+}
+```
+将标识符插入表中的操作
+```C++
+void id::inc_id_cnt(){
+    id_cnt++;
+    token::count++;
+}
+```
+将标识符的计数+1
+```C++
+void id::display(string s){
+    if(argc == 3){
+        outfile << left << setw(30) << "Identifier" << left << setw(30) << s << endl;
+    }else{
+        cout << left << setw(30) << "Identifier" << left << setw(30) << s << endl;
+    }
+}
+```
+将识别到的标识符打印到屏幕或输出到指定的文件中
+```C++
+void id::disp_tbl(){
+    if (argc == 2){
+        cout << endl << endl << "ID_TABLE" << endl << endl;
+        map<string, int>::iterator iter = wordlist.begin();
+        map<string ,int>::iterator end = wordlist.end();
+        for (; iter != end; iter ++)
+            cout << setw(5) << iter->second << setw(10) << " " << iter->first << endl;
+    }else if (argc == 3){
+        outfile << endl << endl << "ID_TABLE" << endl << endl;
+        map<string, int>::iterator iter = wordlist.begin();
+        map<string ,int>::iterator end = wordlist.end();
+        for (; iter != end; iter ++)
+            outfile << setw(5) << iter->second << setw(10) << " " << iter->first << endl;
+    }else {
+        ;
+    }
+
+}
+```
+打印出词法分析程序维护的标识符表
