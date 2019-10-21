@@ -1048,172 +1048,172 @@ return STRINGS;
 case 6:
 YY_RULE_SETUP
 #line 32 "lex.l"
-return AUTO ;
+{yylval = AUTO ; return KEYWORD;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 33 "lex.l"
-return BREAK ;
+{yylval = BREAK ; return KEYWORD;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 34 "lex.l"
-return CASE ;
+{yylval = CASE ; return KEYWORD;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 35 "lex.l"
-return CHAR ;
+{yylval = CHAR ; return KEYWORD;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 36 "lex.l"
-return CONST ;
+{yylval = CONST ; return KEYWORD;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 37 "lex.l"
-return CONTINUE ;
+{yylval = CONTINUE ; return KEYWORD;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 38 "lex.l"
-return DEFAULT ;
+{yylval = DEFAULT ; return KEYWORD;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 39 "lex.l"
-return DO ;
+{yylval = DO ; return KEYWORD;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 40 "lex.l"
-return DOUBLE ;
+{yylval = DOUBLE ; return KEYWORD;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 41 "lex.l"
-return ELSE ;
+{yylval = ELSE ; return KEYWORD;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 42 "lex.l"
-return ENUM ;
+{yylval = ENUM ; return KEYWORD;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 43 "lex.l"
-return EXTERN ;
+{yylval = EXTERN ; return KEYWORD;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 44 "lex.l"
-return FLOAT ;
+{yylval = FLOAT ; return KEYWORD;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 45 "lex.l"
-return FOR ;
+{yylval = FOR ; return KEYWORD;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 46 "lex.l"
-return GOTO ;
+{yylval = GOTO ; return KEYWORD;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 47 "lex.l"
-return IF ;
+{yylval = IF ; return KEYWORD;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 48 "lex.l"
-return INT ;
+{yylval = INT ; return KEYWORD;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 49 "lex.l"
-return LONG ;
+{yylval = LONG ; return KEYWORD;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 50 "lex.l"
-return REGISTER ;
+{yylval = REGISTER ; return KEYWORD;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 51 "lex.l"
-return RETURN ;
+{yylval = RETURN ; return KEYWORD;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 52 "lex.l"
-return SHORT ;
+{yylval = SHORT ; return KEYWORD;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 53 "lex.l"
-return SIGNED ;
+{yylval = SIGNED ; return KEYWORD;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 54 "lex.l"
-return SIZEOF ;
+{yylval = SIZEOF ; return KEYWORD;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 55 "lex.l"
-return STATIC ;
+{yylval = STATIC ; return KEYWORD;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 56 "lex.l"
-return STRUCT ;
+{yylval = STRUCT ; return KEYWORD;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 57 "lex.l"
-return SWITCH ;
+{yylval = SWITCH ; return KEYWORD;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 58 "lex.l"
-return TYPEDEF ;
+{yylval = TYPEDEF ; return KEYWORD;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 59 "lex.l"
-return UNION ;
+{yylval = UNION ; return KEYWORD;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 60 "lex.l"
-return UNSIGNED ;
+{yylval = UNSIGNED ; return KEYWORD;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 61 "lex.l"
-return VOID ;
+{yylval = VOID ; return KEYWORD;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 62 "lex.l"
-return VOLATILE ;
+{yylval = VOLATILE ; return KEYWORD;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 63 "lex.l"
-return WHILE ;
+{yylval = WHILE ; return KEYWORD;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 64 "lex.l"
-return TAB;
+{yylval = TAB; return KEYWORD;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 65 "lex.l"
-return NEWLINE;
+{yylval = NEWLINE; return KEYWORD;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
