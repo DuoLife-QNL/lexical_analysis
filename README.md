@@ -13,6 +13,7 @@
 ### 实现方法
 * 采用flex工具生成词法分析核心程序```lex.cpp```
 * 采用面向对象程序设计思想
+* 词法规则参照ANSI C
   
 ### 程序运行说明
 * 运行环境：linux/unix + flex词法分析工具
@@ -47,3 +48,113 @@
 
 ## 程序设计说明
 ### lex词法分析程序设计说明
+#### 使用的lex内置变量
+* ```yylineno```：记录当前程序读取到哪一行，以便报错时输出错误的位置
+* ```yytext```：字符数组指针，指向当前接收的记号
+* ```yyleng```：当前读入记号的长度
+* ```yyin```：```FILE*```类型变量，是词法分析程序的文件读入指针，程序开始时指向用户输入的待识别文件：
+    ```C++
+    if(!(yyin = fopen(argv[1], "r"))){
+            perror(argv[1]);
+            return 1;
+        }
+    ```
+    若没有如上设置，则```yyin```默认指向标准输入
+#### 对于各种记号的定义及操作
+1. 定义标识符和常数的规则如下（对于常数的定义参照PASCAL的规则扩充了指数）
+```
+letter  [A-Za-z_]
+digit   [0-9]
+id      {letter}({letter}|{digit})*
+num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
+```
+2. 对于关键字的定义及操作：
+```C++
+"auto" 		return AUTO ;
+"break" 	return BREAK ;
+"case" 		return CASE ;
+"char" 		return CHAR ;
+"const" 	return CONST ;
+"continue" 	return CONTINUE ;
+"default" 	return DEFAULT ;
+"do" 		return DO ;
+"double" 	return DOUBLE ;
+"else" 		return ELSE ;
+"enum" 		return ENUM ;
+"extern" 	return EXTERN ;
+"float" 	return FLOAT ;
+"for" 		return FOR ;
+"goto" 		return GOTO ;
+"if" 		return IF ;
+"int" 		return INT ;
+"long" 		return LONG ;
+"register" 	return REGISTER ;
+"return" 	return RETURN ;
+"short" 	return SHORT ;
+"signed" 	return SIGNED ;
+"sizeof" 	return SIZEOF ;
+"static" 	return STATIC ;
+"struct" 	return STRUCT ;
+"switch" 	return SWITCH ;
+"typedef" 	return TYPEDEF ;
+"union" 	return UNION ;
+"unsigned" 	return UNSIGNED ;
+"void" 		return VOID ;
+"volatile" 	return VOLATILE ;
+"while" 	return WHILE ;
+```
+
+1. 对于运算符的定义和操作如下：
+```C++
+"+" 		{yylval = PLUS ;return RELOP;}
+"-" 		{yylval = MINUS ;return RELOP;}
+"*" 		{yylval = TIMES ;return RELOP;}
+"/" 		{yylval = DIV ;return RELOP;}
+"%" 		{yylval = MODULO ;return RELOP;}
+"=" 		{yylval = EQUALS ;return RELOP;}
+"&" 		{yylval = BITAND ;return RELOP;}
+"|" 		{yylval = BITOR ;return RELOP;}
+"^" 		{yylval = BITXOR ;return RELOP;}
+"!" 		{yylval = NOT ;return RELOP;}
+"<" 		{yylval = LESS ;return RELOP;}
+">" 		{yylval = GREATER ;return RELOP;}
+"+=" 		{yylval = PLUSEQ ;return RELOP;}
+"-=" 		{yylval = MINUSEQ ;return RELOP;}
+"*=" 		{yylval = TIMESEQ ;return RELOP;}
+"/=" 		{yylval = DIVEQ ;return RELOP;}
+"%=" 		{yylval = MODULOEQ ;return RELOP;}
+"&&" 		{yylval = AND ;return RELOP;}
+"||" 		{yylval = OR ;return RELOP;}
+"==" 		{yylval = REQUALS ;return RELOP;}
+"!=" 		{yylval = NOTEQUAL ;return RELOP;}
+"<=" 		{yylval = LESSEQ ;return RELOP;}
+">=" 		{yylval = GREATEREQ ;return RELOP;}
+"++" 		{yylval = INCR ;return RELOP;}
+"--" 		{yylval = DECR ;return RELOP;}
+"<<" 		{yylval = LSHIFT ;return RELOP;}
+">>" 		{yylval = RSHIFT ;return RELOP;}
+"&=" 		{yylval = EMPEQ ;return RELOP;}
+"|=" 		{yylval = OREQ ;return RELOP;}
+"^=" 		{yylval = XOREQ ;return RELOP;}
+"<<=" 		{yylval = LSHIFTEQ ;return RELOP;}
+">>=" 		{yylval = RSHIFTEQ ;return RELOP;}
+"->" 		{yylval = PTRREF ;return RELOP;}
+```
+
+4. 对于分界符的定义和操作如下：
+```C++
+"#" 		{yylval = HASH ; return DELIMITER;} 
+"$" 		{yylval = DOLLAR ; return DELIMITER;} 
+"@" 		{yylval = ATRATE ; return DELIMITER;} 
+"[" 		{yylval = LS ; return DELIMITER;} 
+"]" 		{yylval = RS ; return DELIMITER;} 
+"{" 		{yylval = LB ; return DELIMITER;} 
+"}" 		{yylval = RB ; return DELIMITER;} 
+"(" 		{yylval = LP; return DELIMITER;} 
+")" 		{yylval = RP ; return DELIMITER;} 
+"?" 		{yylval = QMARK ; return DELIMITER;} 
+":" 		{yylval = COLON ; return DELIMITER;} 
+"." 		{yylval = DOT ; return DELIMITER;} 
+";"         {yylval = SEMI ; return DELIMITER;} 
+"," 		{yylval = COMMA ; return DELIMITER;} 
+```

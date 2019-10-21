@@ -106,6 +106,7 @@ extern ofstream outfile;
 #define WHILE 32
 #define TAB 33
 #define NEWLINE 34
+#define KEYWORD 35
 
 #define RELOP 39
 #define PLUS 40
