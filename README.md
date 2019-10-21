@@ -14,7 +14,7 @@
 * 采用flex工具生成词法分析核心程序```lex.cpp```
 * 采用面向对象程序设计思想
 * 词法规则参照ANSI C
-  
+ 
 ### 程序运行说明
 * 运行环境：linux/unix + flex词法分析工具
 * 在linux环境中使用```make```指令生成词法分析程序```lexical_analysis```
@@ -47,12 +47,12 @@
 
 
 ## 程序设计说明
-### lex词法分析程序设计说明
-#### 使用的lex内置变量
+### 使用的lex内置变量
 * ```yylineno```：记录当前程序读取到哪一行，以便报错时输出错误的位置
 * ```yytext```：字符数组指针，指向当前接收的记号
 * ```yyleng```：当前读入记号的长度
 * ```yyin```：```FILE*```类型变量，是词法分析程序的文件读入指针，程序开始时指向用户输入的待识别文件：
+* ```yylval```：当用yacc作为语法分析器时，可以将此值传递给yacc，作为记号的编号。在本程序中实际上未使用到此变量
     ```C++
     if(!(yyin = fopen(argv[1], "r"))){
             perror(argv[1]);
@@ -60,51 +60,73 @@
         }
     ```
     若没有如上设置，则```yyin```默认指向标准输入
-#### 对于各种记号的定义及操作
-1. 定义标识符和常数的规则如下（对于常数的定义参照PASCAL的规则扩充了指数）
+### 用lex和C++配合编写词法分析器的实现思路
+1. ```main.cpp```为入口函数，包含程序的主函数```int main(int argc, char** argv)```
+2. 在主函数中循环调用函数```int yylex()```，```yylex()```函数每识别一个记号，返回一个值，根据此返回值判断```yylex()```函数识别出的记号类型，并进行进一步的处理。同时，通过```yytext```和```yyleng```获取读入记号的内容和长度。
+3. ```token.h```和```token.cpp```中使用C++面向对象编程的方法，创建```token```类，由```token```类派生出五种标识符的类，分别是```id```、```num```、```operators```、```delimeter```、```keyword```，每个类中包含各自的方法，如计数、显示、存取标识符表等；此外，还创建了```line```、```strings```、```error```类，分别进行对换行、字符串、错误的处理
+4. 对于输入记号的识别方法在```lex.l```文件中，由flex编译程序对```lex.l```编译生成```lex.c```文件，其中包含识别记号的函数```int yylex()```
+5. 将以上的```.c```和```.cpp```文件，以及各自的头文件编译链接之后，形成最终的词法分析程序
+### 对于各种记号的定义及操作
+1. 对标识符的定义及操作：
 ```
 letter  [A-Za-z_]
 digit   [0-9]
 id      {letter}({letter}|{digit})*
+```
+lex识别后操作如下：
+```C++
+{id}        {yylval = g_id.detected(); return IDENTIFIER;}
+```
+其中，```g_id```为定义的全局变量，为```id```对象，识别出标识符后，调用其类的方法，包括插入标识符表，返回其在标识符表中的入口编号，统计出现的标识符个数等
+2. 对常数的定义及操作（参照PASCAL的规则扩充了指数）：
+```C++
+letter  [A-Za-z_]
+digit   [0-9]
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 ```
-2. 对于关键字的定义及操作：
+其中允许数字前有正负号，并允许带有指数的数字
 ```C++
-"auto" 		return AUTO ;
-"break" 	return BREAK ;
-"case" 		return CASE ;
-"char" 		return CHAR ;
-"const" 	return CONST ;
-"continue" 	return CONTINUE ;
-"default" 	return DEFAULT ;
-"do" 		return DO ;
-"double" 	return DOUBLE ;
-"else" 		return ELSE ;
-"enum" 		return ENUM ;
-"extern" 	return EXTERN ;
-"float" 	return FLOAT ;
-"for" 		return FOR ;
-"goto" 		return GOTO ;
-"if" 		return IF ;
-"int" 		return INT ;
-"long" 		return LONG ;
-"register" 	return REGISTER ;
-"return" 	return RETURN ;
-"short" 	return SHORT ;
-"signed" 	return SIGNED ;
-"sizeof" 	return SIZEOF ;
-"static" 	return STATIC ;
-"struct" 	return STRUCT ;
-"switch" 	return SWITCH ;
-"typedef" 	return TYPEDEF ;
-"union" 	return UNION ;
-"unsigned" 	return UNSIGNED ;
-"void" 		return VOID ;
-"volatile" 	return VOLATILE ;
-"while" 	return WHILE ;
+{num}       {yylval = g_num.detected(); return NUM;}
 ```
+其中，```g_num```为定义的全局变量，是```num```对象，识别出常数后调用其类的方法，包括将识别的文本转成数字，统计常数记号的出现次数等
+3. 对于关键字的定义及操作：
+```C++
+"auto" 		{yylval = AUTO ; return KEYWORD;}
+"break" 	{yylval = BREAK ; return KEYWORD;}
+"case" 		{yylval = CASE ; return KEYWORD;}
+"char" 		{yylval = CHAR ; return KEYWORD;}
+"const" 	{yylval = CONST ; return KEYWORD;}
+"continue" 	{yylval = CONTINUE ; return KEYWORD;}
+"default" 	{yylval = DEFAULT ; return KEYWORD;}
+"do" 		{yylval = DO ; return KEYWORD;}
+"double" 	{yylval = DOUBLE ; return KEYWORD;}
+"else" 		{yylval = ELSE ; return KEYWORD;}
+"enum" 		{yylval = ENUM ; return KEYWORD;}
+"extern" 	{yylval = EXTERN ; return KEYWORD;}
+"float" 	{yylval = FLOAT ; return KEYWORD;}
+"for" 		{yylval = FOR ; return KEYWORD;}
+"goto" 		{yylval = GOTO ; return KEYWORD;}
+"if" 		{yylval = IF ; return KEYWORD;}
+"int" 		{yylval = INT ; return KEYWORD;}
+"long" 		{yylval = LONG ; return KEYWORD;}
+"register" 	{yylval = REGISTER ; return KEYWORD;}
+"return" 	{yylval = RETURN ; return KEYWORD;}
+"short" 	{yylval = SHORT ; return KEYWORD;}
+"signed" 	{yylval = SIGNED ; return KEYWORD;}
+"sizeof" 	{yylval = SIZEOF ; return KEYWORD;}
+"static" 	{yylval = STATIC ; return KEYWORD;}
+"struct" 	{yylval = STRUCT ; return KEYWORD;}
+"switch" 	{yylval = SWITCH ; return KEYWORD;}
+"typedef" 	{yylval = TYPEDEF ; return KEYWORD;}
+"union" 	{yylval = UNION ; return KEYWORD;}
+"unsigned" 	{yylval = UNSIGNED ; return KEYWORD;}
+"void" 		{yylval = VOID ; return KEYWORD;}
+"volatile" 	{yylval = VOLATILE ; return KEYWORD;}
+"while" 	{yylval = WHILE ; return KEYWORD;}
+```
+若遇到关键字，则将其宏定义传递给```yylval```，并使```yylex()```函数返回```KEYWORD```
 
-1. 对于运算符的定义和操作如下：
+4. 对于运算符的定义和操作如下：
 ```C++
 "+" 		{yylval = PLUS ;return RELOP;}
 "-" 		{yylval = MINUS ;return RELOP;}
@@ -140,8 +162,9 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 ">>=" 		{yylval = RSHIFTEQ ;return RELOP;}
 "->" 		{yylval = PTRREF ;return RELOP;}
 ```
+若遇到关系运算符，则将其宏定义传递给```yylval```，并使```yylex()```函数返回```RELOP```
 
-4. 对于分界符的定义和操作如下：
+5. 对于分界符的定义和操作如下：
 ```C++
 "#" 		{yylval = HASH ; return DELIMITER;} 
 "$" 		{yylval = DOLLAR ; return DELIMITER;} 
@@ -158,3 +181,18 @@ num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
 ";"         {yylval = SEMI ; return DELIMITER;} 
 "," 		{yylval = COMMA ; return DELIMITER;} 
 ```
+若遇到分界符，则将其宏定义传递给```yylval```，并使```yylex()```函数返回```DELIMITER```
+
+### 错误处理
+1. lex的两个匹配原则：最长匹配原则和最先匹配原则。其中，最先匹配原则保证当有多个规则可以匹配缓冲区中的字符时，则选择在缓冲区中可以匹配最长字符串的规则；最先匹配原则保证若多条规则同时匹配且长度相等时，匹配在lex源程序中写在最前面的那一条规则。
+2. 由以上的两条规则可知，对于任意只包含C语言中可能出现的字符的文件，不带错误处理的lex语法可以将其分割成众多记号。在C语言编写词法分析程序时，由于不存在以上两条规则，故在状态转换之前会出现只有一条非other路径的情况，此时需要进行错误处理。但lex保证此时不会陷入错误，而是将其识别为多个记号，对其错误的处理全部在语法分析程序进行。
+3. 但由于题目的限制，此处将几个典型的错误以正则式的形式在lex源程序中写出，如下：
+```
+num_err [+\-]?{digit}+(\.[^0-9])[^\t\n #$@\[\]\{\}\(\)\?:;\.,\+-/\%=&\|\^!<>*]*
+id_err1 {digit}({letter}|{digit})*{letter}({letter}|{digit})*
+id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
+```
+* 第一种情况对应在识别数字时，"."后只能跟数字而没有"other"输入状态时，词法分析程序的报错
+* 第二、三中情况对应非法标识符的错误检测
+4. 检测到错误时，通过yylineno返回错误出现的位置，并通过error实例进行错误处理
+5. 由于lex的两个匹配原则，故出现自动机不接受的词法错误的时候，不会报错，即可以直接完成错误状态的恢复
