@@ -14,6 +14,7 @@ int main(int a, char** b){
     operators o;
     delimiter de;
     strings s;
+    characters c;
     error e;
     id i;
 
@@ -47,6 +48,9 @@ int main(int a, char** b){
             ch_cnt += yyleng;
         }else if(d == STRINGS){
             s.display(yytext);
+            ch_cnt += yyleng;
+        }else if (d == CHARACTERS){
+            c.display(yytext);
             ch_cnt += yyleng;
         }else if(d == NUM){
             ch_cnt += yyleng;

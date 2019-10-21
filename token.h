@@ -63,6 +63,11 @@ class strings{
         void display(char* yytext);
 };
 
+class characters{
+    public:
+        void display(char* yytext);
+};
+
 class error{
     public:
         void display(char* yytext, int yylineno);
@@ -164,5 +169,6 @@ extern ofstream outfile;
 #define NUM 96
 
 #define STRINGS 110
+#define CHARACTERS 111
 
 #define ERROR 199

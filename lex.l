@@ -15,6 +15,7 @@ digit   [0-9]
 dlmt    [#$@]
 id      {letter}({letter}|{digit})*
 num     [+\-]?{digit}+(\.{digit}+)?(e[+\-]?{digit}+)?
+charac  ['].[']
 num_err [+\-]?{digit}+(\.[^0-9])[^\t\n #$@\[\]\{\}\(\)\?:;\.,\+-/\%=&\|\^!<>*]*
 id_err1 {digit}({letter}|{digit})*{letter}({letter}|{digit})*
 id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
@@ -27,7 +28,7 @@ id_err2 ({letter})({letter}|{digit})*{dlmt}+({letter}|{digit})*
 "/*".*"*/"  ;
 "//".*      ;
 ("\"")(.)*("\"")  return STRINGS;
-
+{charac}    return CHARACTERS;
 
 "auto" 		{yylval = AUTO ; return KEYWORD;}
 "break" 	{yylval = BREAK ; return KEYWORD;}

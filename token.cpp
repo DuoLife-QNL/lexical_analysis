@@ -151,6 +151,16 @@ void strings::display(char* yytext){
     }
 }
 
+void characters::display(char* yytext){
+    string s_temp(yytext);
+    string s = s_temp.substr(1, s_temp.length() - 2);
+    if (argc == 3){
+        outfile << left << setw(30) << "Char" << left << setw(30) << s << endl;
+    }else{
+        cout << left << setw(30) << "Char" << left << setw(30) << s << endl;
+    }
+}
+
 void error::display(char* yytext, int yylineno){
     string s(yytext);
     if (argc == 3){
